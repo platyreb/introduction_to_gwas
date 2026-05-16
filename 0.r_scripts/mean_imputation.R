@@ -1,8 +1,8 @@
 
-library("tidyverse")
+library("dplyr")
 library("data.table")
 
-prjfolder = "~/Dropbox/cursos/gwas_2024"
+prjfolder = "~/Dropbox/cursos/gwas_2026"
 repo = "introduction_to_gwas"
 
 ## PARAMETERS
