@@ -1,5 +1,5 @@
 
-library("tidyverse")
+library("dplyr")
 library("data.table")
 
 prjfolder = "~/Dropbox/cursos/gwas_2024"
