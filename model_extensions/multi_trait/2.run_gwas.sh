@@ -10,5 +10,5 @@ traits='SL,SW'
 covariates='population'
 
 ## stand-alone script
-Rscript --vanilla gwas_sommer_multitrait.R genotype_file=$genotypef snp_map=$snpf phenotype_file=$phenotypef traits=$traits covariates=$covariates
+Rscript --vanilla gwas_sommer_multitrait_NOstackTrait.R genotype_file=$genotypef snp_map=$snpf phenotype_file=$phenotypef traits=$traits covariates=$covariates
 
