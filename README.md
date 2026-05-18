@@ -29,13 +29,14 @@ As a general rule, we'll have a longer break (30 minutes) at 16:00 and two short
 
 - Lab 1 - Description of Datasets [Christian]
     - [Description of Datasets](slides/Description_of_Data.pdf)
- - [Course Manual](slides/gwas_manual.pdf)
- - [GWAS Workflow](slides/GWAS_workflow.pdf)
 
 - Lecture 2	Genotyping Introduction: A brief overview [Christian]
     - [Genotyping](slides/2_Genotyping_overview.pdf)
  
-- Supplementary lecture: [Linux and the Shell](<slides/Linux and the Shell.pdf>)
+- Supplementary material:
+    - [Linux and the Shell](<slides/Linux and the Shell.pdf>)
+    - [Course Manual](slides/gwas_manual.pdf)
+    - [GWAS Workflow](slides/GWAS_workflow.pdf)
 
 
 **Day 2**
