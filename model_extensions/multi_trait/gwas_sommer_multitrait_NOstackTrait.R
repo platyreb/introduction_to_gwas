@@ -141,8 +141,8 @@ head(pheno_long)
 # )
 
 fit <- mmer(cbind(SL, SW) ~ population,
-            random = ~ vs(id, Gu = K), # Unstructured covariance for 2 traits
-            rcov = ~ vs(units, Gtc = unsm(2)),
+            random = ~ vsr(id, Gu = K, Gtc = unsm(2)),
+            rcov   = ~ vsr(units, Gtc = unsm(2)),
             data = P)
 
 print(summary(fit))
