@@ -178,76 +178,85 @@ print(cor_SL_SW)
 writeLines(" - get marker effects from GBLUP")
 
 ## getting the X'(XX')^-1 matrix
-Kinv <- solve(K + diag(1e-6, ncol(K), ncol(K)))
-XKinv <- t(X)%*%Kinv
+Kinv <- solve(K + diag(rnorm(ncol(K))/1e+3, ncol(K), ncol(K)))
+Xc = scale(X, center = TRUE, scale = FALSE) 
+XKinv <- t(Xc)%*%Kinv
 
-to_save = list("fit" = fit, "K" = K, "X" = X)
-save(to_save, file = "multi-trait-fit.RData")
-# ## individual genetic effects
-# g <- gblup_multi$uList$`vsm(usm(trait), ism(id), Gu = K)`
-# a.from.g <- XKinv %*% g ## marker effects
+## individual genetic effects
+g_sl <- fit$U$`u:id`$SL
+
+## 1) get SNP effects --> β_SNP = t(X) * K^-1 * g
+## X(n,m); K(n,n); g(n,1) --> β_SNP(m,1) 
+beta_hat_sl <- XKinv %*% g_sl ## marker effects
+
+## 2) get the standard errors: Var(β_SNP)=X(K^−1)Var(g)(K−1)t(X)
+## X(n,m); K(n,n); Var(g)(n,n) --> Var(β_SNP)(m,m)
+varg_sl = fit$VarU$`u:id`$SL
+cov_beta_sl <- t(X) %*% Kinv %*% varg_sl %*% t(Kinv) %*% X
+var_beta_sl = diag(cov_beta_sl)
+
+# Standard errors
+se_beta <- sqrt(var_beta_sl)
+
+## 3) t-statistc = β_SNP  / SE(β_SNP)
+## all (m,1)
+tstat = beta_hat_sl/se_beta
+
+## 4) p-values (two-sided)
+p_values <- 2 * (1 - pnorm(abs(tstat)))
+
+# to_save = list("fit" = fit, "K" = K, "X" = X)
+# save(to_save, file = "multi-trait-fit.RData")
+
+temp <- SNP_INFO
+temp$log_pval = -log10(p_values)
+head(temp)
 # 
-# ## first trait
-# start_1 = gblup_multi$partitions[[1]][1]
-# end_1 = gblup_multi$partitions[[1]][3]
+png(paste(dataset,"manhattan_SL.png",sep="_"))
+manhattan(temp, pch=20,cex=1.5, PVCN = "log_pval")
+dev.off()
 # 
-# ## Ci is the inverse of the coefficient matrix
-# var.g <- kronecker(K, gblup_multi$theta[[1]][1]) - gblup_multi$Ci[start_1:end_1,start_1:end_1]
-# 
-# ## t statistic
-# var.a.from.g <- t(X) %*% Kinv %*% (var.g) %*% t(Kinv) %*% X ## variance of marker effects
-# se.a.from.g <- sqrt(diag(var.a.from.g))  ## standard error of the estimates
-# t.stat.from.g <- a.from.g[,1]/se.a.from.g # t-statistic
-# 
-# n <- nrow(phenotypes) # to be used for degrees of freedom
-# k <- 1 # to be used for degrees of freedom (number of levels in fixed effects)
-# pval_1 <- dt(t.stat.from.g, df=n-k-1) # pvalues
-# 
-# temp <- SNP_INFO
-# temp$log_pval = -log10(pval_1)
-# head(temp)
-# 
-# png(paste(dataset,"manhattan_SL.png",sep="_"))
-# sommer::manhattan(temp, pch=20,cex=1.5, PVCN = "log_pval")
-# dev.off()
-# 
-# png(paste(dataset,"qqplot_SL.png",sep="_"), width = 600, height = 600)
-# qqman::qq(pval_1)
-# dev.off()
-# 
-# 
+png(paste(dataset,"qqplot_SL.png",sep="_"), width = 600, height = 600)
+qqman::qq(p_values)
+dev.off()
+
+#################
 # ## second trait
-# start_2 = gblup_multi$partitions[[1]][2]
-# end_2 = gblup_multi$partitions[[1]][4]
+#################
+## individual genetic effects
+g_sw <- fit$U$`u:id`$SW
+
+## 1) get SNP effects --> β_SNP = t(X) * K^-1 * g
+## X(n,m); K(n,n); g(n,1) --> β_SNP(m,1) 
+beta_hat_sw <- XKinv %*% g_sw ## marker effects
+
+## 2) get the standard errors: Var(β_SNP)=X(K^−1)Var(g)(K−1)t(X)
+## X(n,m); K(n,n); Var(g)(n,n) --> Var(β_SNP)(m,m)
+varg_sw = fit$VarU$`u:id`$SW
+cov_beta_sw <- t(X) %*% Kinv %*% varg_sw %*% t(Kinv) %*% X
+var_beta_sw = diag(cov_beta_sw)
+
+# Standard errors
+se_beta <- sqrt(var_beta_sw)
+
+## 3) t-statistc = β_SNP  / SE(β_SNP)
+## all (m,1)
+tstat = beta_hat_sw/se_beta
+
+## 4) p-values (two-sided)
+p_values_sw <- 2 * (1 - pnorm(abs(tstat)))
+
+temp <- SNP_INFO
+temp$log_pval = -log10(p_values_sw)
+head(temp)
 # 
-# ## choose the corresponding genetic variance; Ci is the inverse of the coefficient matrix
-# var.g <- kronecker(K, gblup_multi$theta[[1]][4]) - gblup_multi$Ci[start_2:end_2,start_2:end_2]
+png(paste(dataset,"manhattan_SW.png",sep="_"))
+manhattan(temp, pch=20,cex=1.5, PVCN = "log_pval")
+dev.off()
 # 
-# ## t statistic
-# var.a.from.g <- t(X) %*% Kinv %*% (var.g) %*% t(Kinv) %*% X ## variance of marker effects
-# se.a.from.g <- sqrt(diag(var.a.from.g))  ## standard error of the estimates
-# t.stat.from.g <- a.from.g[,2]/se.a.from.g # t-statistic
-# 
-# n <- nrow(phenotypes) # to be used for degrees of freedom
-# k <- 1 # to be used for degrees of freedom (number of levels in fixed effects)
-# pval_2 <- dt(t.stat.from.g, df=n-k-1) # pvalues
-# 
-# temp$log_pval_2 = -log10(pval_2)
-# head(temp)
-# 
-# png(paste(dataset,"manhattan_SW.png",sep="_"))
-# sommer::manhattan(temp, pch=20, cex=1.5, PVCN = "log_pval_2")
-# dev.off()
-# 
-# ## qq-plot
-# png(paste(dataset,"qqplot_SW.png",sep="_"), width = 600, height = 600)
-# qqman::qq(pval_2)
-# dev.off()
-# 
-# ## rename P to log_p (as it is) and add the column with p-values
-# names(temp)[4:5] <- c("SL_log_p", "SW_log_p")
-# fname <- paste(dataset,"multitrait_GWAS.results", sep="_")
-# fwrite(x = temp, file = fname)
+png(paste(dataset,"qqplot_SW.png",sep="_"), width = 600, height = 600)
+qqman::qq(p_values)
+dev.off()
 
 
 print("#########")
