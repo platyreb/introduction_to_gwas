@@ -35,7 +35,7 @@ As a general rule, we'll have a longer break (30 minutes) at 16:00 and two short
 - Lecture 2	Genotyping Introduction: A brief overview [Christian]
     - [Genotyping](slides/2_Genotyping_overview.pdf)
  
-  - Supplementary lecture: [Linux and the Shell](<slides/Linux and the Shell.pdf>)
+- Supplementary lecture: [Linux and the Shell](<slides/Linux and the Shell.pdf>)
 
 
 **Day 2**
