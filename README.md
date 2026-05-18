@@ -18,6 +18,7 @@ As a general rule, we'll have a longer break (30 minutes) at 16:00 and two short
     - [GWAS Workflow (short)](slides/GWAS_workflow_short.pdf)
 - Lecture 1	GWAS Overview: Linkage Disequilibrium / Linear Regression / Case Studies [Oscar]
     - [GWAS Overview](slides/1_GWAS_overview.pdf)
+
 <!--
 - Lecture 2	Introduction to GWAS: Linkage Disequilibrium and Linear Regression [Oscar]
     - [Introduction to GWAS](slides/2_Introduction_to_GWAS.pdf)
@@ -25,6 +26,7 @@ As a general rule, we'll have a longer break (30 minutes) at 16:00 and two short
     - [R code. Exercise on Simple Linear Regression](basic_model/1.Basis_of_linear_regression.R)
     - [Rmarkdown Code. Exercise on Simple Logistic Regression](basic_model/2.exercise.Basis_of_logistic_regression.Rmd)
 -->
+
 - Lab 1 - Description of Datasets [Christian]
     - [Description of Datasets](slides/Description_of_Data.pdf)
  - [Course Manual](slides/gwas_manual.pdf)
