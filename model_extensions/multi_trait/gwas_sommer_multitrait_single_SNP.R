@@ -116,7 +116,7 @@ SNP_INFO = SNP_INFO[vec,]
 ###################
 ## Running the GWAS
 ###################
-writeLines("- running GWAS for multiple traits")
+writeLines("- running GWAS for multiple traits: single-SNP model")
 # subset phenotypes
 # P <- phenotypes %>% dplyr::rename(phenotype = !!as.name(config$trait))
 trts = strsplit(traits, split = ",")[[1]]
@@ -134,7 +134,7 @@ run_mt_gwas <- function(snp_name){
   P$SNP <- X[, snp_name]
   
   fit <- mmer(
-    cbind(SL, SW) ~ SNP,
+    cbind(SL, SW) ~ population + SNP,
     random = ~ vsr(id, Gu = K),
     rcov = ~ vsr(units),
     data = P,
@@ -152,7 +152,7 @@ run_mt_gwas <- function(snp_name){
   
   tstats <- beta_table[snp_rows, "t.value"]
   n = nrow(P)
-  pvals = 2*pt(q = tstats, df = n-2, lower.tail = FALSE)
+  pvals = 2*pt(q = tstats, df = n-3, lower.tail = FALSE)  ## !!! check number of DF !!! (usually n - k - 1; k = n. of predictors in the model)
   
   # multivariate summary statistic
   minp <- min(pvals, na.rm = TRUE)
