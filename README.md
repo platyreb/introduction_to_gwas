@@ -14,7 +14,7 @@ As a general rule, we'll have a longer break (30 minutes) at 16:00 and two short
 **Day 1**
 
 - Lecture 0	General Introduction / Overview of the Course [Filippo, Oscar, Christian]
-    - [General Introduction](slides/0.General_Introduction.pdf)
+    - [General Introduction](slides/0_General_Introduction.pdf)
     - [GWAS Workflow (short)](slides/GWAS_workflow_short.pdf)
 - Lecture 1	GWAS Overview: Linkage Disequilibrium / Linear Regression / Case Studies [Oscar]
     - [GWAS Overview](slides/1_GWAS_overview.pdf)
@@ -29,8 +29,14 @@ As a general rule, we'll have a longer break (30 minutes) at 16:00 and two short
 
 - Lab 1 - Description of Datasets [Christian]
     - [Description of Datasets](slides/Description_of_Data.pdf)
- - [Course Manual](slides/gwas_manual.pdf)
- - [GWAS Workflow](slides/GWAS_workflow.pdf)
+
+- Lecture 2	Genotyping Introduction: A brief overview [Christian]
+    - [Genotyping](slides/2_Genotyping_overview.pdf)
+ 
+- Supplementary material:
+    - [Linux and the Shell](<slides/Linux and the Shell.pdf>)
+    - [Course Manual](slides/gwas_manual.pdf)
+    - [GWAS Workflow](slides/GWAS_workflow.pdf)
 
 
 **Day 2**
@@ -42,7 +48,6 @@ As a general rule, we'll have a longer break (30 minutes) at 16:00 and two short
     - [Statistical Power and Population Stratification](slides/4.GWAS_experimental_design_and_statistical_power.pdf)
     - [R code. Exercise on statistical power](5.power_and_significance/StatisticalPower_exercise.R)
 - Lecture 5 Initial Data Analysis, Exploratory Data Analysis and Data Pre-Processing [Christian]
-    - [Brief Genotyping overview](<slides/5.1 Genotyping_overview.pdf>)
     - [IDA, EDA & Data Pre-Processing](slides/5_2_Data_pre-processing.pdf)
 - Lab 3 GWAS: a first simple exercise for you! [Christian, Filippo]
     - [GWAS demonstration in R - script](0.r_scripts/GWAS_demo.R)
@@ -73,7 +78,6 @@ As a general rule, we'll have a longer break (30 minutes) at 16:00 and two short
     - [hamming.R]<!--(3.imputation/hamming.R)--> [support script]
     - [knni.R]<!--(3.imputation/knni.R)--> [support script]
 - Lecture 7 Working in the shell [Christian]
-    - [Linux and the Shell](<slides/7.1.Linux and the Shell.pdf>) [OPTIONAL]
     - [Common Data Types and Formats](<slides/7.2 Data_formats.pdf>)
 - Lecture 8	Imputation of Missing Genotypes [Christian]
     - [Imputation](slides/8_Imputation.pdf)
