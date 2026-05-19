@@ -107,7 +107,7 @@ dev.off()
 ###################
 ## Running the GWAS
 ###################
-writeLines("- running GWAS for multiple traits")
+writeLines("- running GWAS for multiple traits: GBLUP model")
 # subset phenotypes
 # P <- phenotypes %>% dplyr::rename(phenotype = !!as.name(config$trait))
 trts = strsplit(traits, split = ",")[[1]]
@@ -133,30 +133,12 @@ pheno_long$population <- as.factor(pheno_long$population)
 # View first rows
 head(pheno_long)
 
-# fit <- mmer(
-#   value ~ trait + population,
-#   random = ~ vs(id, Gu = K),  # K is your relationship matrix
-#   rcov = ~ units,
-#   data = pheno_long
-# )
-
 fit <- mmer(cbind(SL, SW) ~ population,
             random = ~ vsr(id, Gu = K, Gtc = unsm(2)),
             rcov   = ~ vsr(units, Gtc = unsm(2)),
             data = P)
 
 print(summary(fit))
-# fmod <- as.formula(
-#   paste(paste("value"),
-#         paste(c("trait",covs), collapse = "+"),
-#         sep = " ~ "))
-# 
-# print(fmod)
-# 
-# gblup_multi <- mmes( value ~ trait + population, # henderson=TRUE,
-#                      random=~ vsm(usm(trait), ism(id), Gu=K),
-#                      rcov=~ vsm(dsm(trait), ism(units)),
-#                      data=pheno)
 
 print("genetic correlations")
 ## genetic vars
