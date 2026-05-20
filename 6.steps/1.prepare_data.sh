@@ -4,7 +4,7 @@
 ###################################
 
 ## set resources
-plink=~/Downloads/plink  # directory with plink binary
+plink=plink  # directory with plink binary
 
 ## move to the data folder
 cd data
